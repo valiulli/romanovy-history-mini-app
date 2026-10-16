@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://telegram.org https://www.youtube.com; frame-src https://www.youtube.com; style-src 'self'; img-src 'self' data: https://i.ytimg.com; connect-src 'self' https://www.youtube.com;"
+    >
+    <title>Романовы: Живая история</title>
+    <script src="https://telegram.org/js/telegram-web-app.js?64"></script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <span class="header-rule" aria-hidden="true"></span>
+        <p>Романовы: Живая история</p>
+        <span class="header-rule" aria-hidden="true"></span>
+      </header>
+
+      <section class="player-section" aria-labelledby="lecture-title">
+        <div class="player-frame">
+          <div id="player" aria-label="Видеолекция на YouTube"></div>
+          <div id="player-status" class="player-status" role="status">
+            Загружаем видеолекцию…
+          </div>
+        </div>
+
+        <div class="ornament" aria-hidden="true">
+          <span></span><b>◆</b><span></span>
+        </div>
+
+        <h1 id="lecture-title">Александр II: личная жизнь либерала на троне</h1>
+        <p id="lecture-date" class="lecture-date">Дата лекции: 27.02.2021</p>
+      </section>
+
+      <div class="actions">
+        <button id="youtube-button" class="button button-primary" type="button">
+          Открыть в YouTube
+          <span aria-hidden="true">↗</span>
+        </button>
+        <button id="close-button" class="button button-secondary" type="button">
+          Закрыть
+        </button>
+      </div>
+
+      <noscript>
+        <p class="noscript">Включите JavaScript, чтобы посмотреть лекцию.</p>
+      </noscript>
+    </main>
+
+    <script src="app.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+  </body>
+</html>
