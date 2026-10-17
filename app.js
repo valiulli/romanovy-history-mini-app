@@ -16,10 +16,10 @@
   const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
   const telegram = window.Telegram?.WebApp;
   const isTelegram = Boolean(telegram?.initData);
-  const status = document.getElementById("player-status");
 
   document.getElementById("lecture-title").textContent = lectureTitle;
   document.getElementById("lecture-date").textContent = `Дата лекции: ${lectureDate}`;
+  createPlayer();
 
   if (isTelegram) {
     telegram.ready();
@@ -40,23 +40,6 @@
 
   document.getElementById("close-button").addEventListener("click", closeMiniApp);
 
-  window.onYouTubeIframeAPIReady = () => {
-    new window.YT.Player("player", {
-      width: "100%",
-      height: "100%",
-      videoId,
-      playerVars: {
-        playsinline: 1,
-        rel: 0,
-        origin: window.location.origin,
-      },
-      events: {
-        onReady: () => status.classList.add("is-hidden"),
-        onError: showPlayerError,
-      },
-    });
-  };
-
   function closeMiniApp() {
     if (isTelegram) {
       telegram.close();
@@ -69,10 +52,28 @@
     window.close();
   }
 
-  function showPlayerError() {
-    status.textContent = "Видео не загрузилось. Откройте его в YouTube.";
-    status.classList.remove("is-hidden");
-    status.classList.add("is-error");
+  function createPlayer() {
+    const player = document.createElement("iframe");
+    const query = new URLSearchParams({
+      playsinline: "1",
+      rel: "0",
+      origin: window.location.origin,
+      widget_referrer: window.location.href,
+    });
+    player.src = `https://www.youtube-nocookie.com/embed/${videoId}?${query}`;
+    player.title = `YouTube: ${lectureTitle}`;
+    player.referrerPolicy = "strict-origin-when-cross-origin";
+    player.allow = [
+      "accelerometer",
+      "autoplay",
+      "clipboard-write",
+      "encrypted-media",
+      "gyroscope",
+      "picture-in-picture",
+      "web-share",
+    ].join("; ");
+    player.allowFullscreen = true;
+    document.getElementById("player").append(player);
   }
 
   function cleanText(value, fallback, maxLength) {
